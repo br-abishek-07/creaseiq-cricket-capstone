@@ -8,6 +8,15 @@ class AppSurface:
         self.host = host
         self.app = host.main_frame
 
+    def goto(self, *args, **kwargs):
+        # Reloading during deployment polling detaches the old child frame.
+        # Until bind_app runs again, queries must target the current main frame.
+        self.app = self.host.main_frame
+        try:
+            return self.host.goto(*args, **kwargs)
+        finally:
+            self.app = self.host.main_frame
+
     def bind_app(self, timeout=45000):
         """Cloud embeds the UI at /~/+/; localhost normally uses the main frame."""
         self.app = self.host.main_frame

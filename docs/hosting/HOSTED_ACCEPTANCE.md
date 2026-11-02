@@ -125,21 +125,24 @@ failure. Unreached tests are recorded as NOT VERIFIED. Optional limitations do
 not silently turn into PASS. A deployment cannot be declared accepted until a
 real run against the public URL has passed the required gates.
 
-## Execution access in this development session
+## Observed hosted execution
 
-The environment's public Streamlit request received a proxy tunnel denial
-(`403 Forbidden`) and local DNS resolution failed. That does not establish an
-application defect. The connected GitHub tools can commit files but expose no
-workflow-dispatch operation; the local GitHub CLI reports invalid authentication.
-Consequently this session cannot honestly provide a new hosted Actions run URL
-until an authenticated owner dispatches the manual workflow. No hosted audit
-completion or uploaded GitHub artifact is implied by adding these files.
+The environment's own proxy cannot reach the Streamlit URL. The owner explicitly
+authorized a temporary development-only push trigger to execute the audit on
+GitHub Actions instead. The completed public run is:
+<https://github.com/br-abishek-07/creaseiq-cricket-capstone/actions/runs/41446883252>.
+
+It passed 48 gates with zero failures and three stated optional limitations.
+Read [the hosted acceptance report](HOSTED_ACCEPTANCE_RUN_41446883252.md) for
+observed revision, tests, memory measurements and artifact links. The temporary
+push trigger has been removed; the workflow is manual-only again. `main` and the
+existing four-job contract workflow remain unchanged.
 
 ## Temporary automatic execution authorized on 2 November 2026
 
 For this audit only, the owner authorized a push trigger restricted to
 `dev-phase1-ui` so GitHub Actions can register and execute the workflow without
-GitHub CLI installation. It is removed after the hosted run completes. `main`
+GitHub CLI installation. It was removed after the successful hosted run completed. `main`
 and the existing four-job contract workflow remain unchanged.
 
 The browser polls for the exact intended clean checkout for up to 600 seconds,
@@ -148,3 +151,8 @@ with bounded individual browser operations and a 15-second retry interval.
 revision at timeout is NOT VERIFIED (deployment/access blocked), not an
 application failure. If the revision changes during the workload, revision
 stability is NOT VERIFIED and the audit cannot declare acceptance.
+
+The hosted app runs within a same-host iframe on Streamlit Cloud. The harness
+selects the frame that contains the workspace controls, while retaining page-level
+download events and screenshots. Third-party status frames are ignored. Reloads
+discard the previous child-frame reference before deployment polling resumes.

@@ -1,0 +1,455 @@
+{
+  "run_id": 41446883252,
+  "run_url": "https://github.com/br-abishek-07/creaseiq-cricket-capstone/actions/runs/41446883252",
+  "commit": "9cca4e7c65cd02cf07ad4d6fc4cab0785cc274b8",
+  "origin": "Parsed from actual GitHub Actions runner logs, not local test output",
+  "summary": {
+    "PASS": 48,
+    "FAIL": 0,
+    "NOT VERIFIED": 3
+  },
+  "gates": [
+    {
+      "test": "runner_connectivity",
+      "status": "PASS",
+      "detail": {
+        "url": "https://creaseiq-cricket-capstone.streamlit.app/",
+        "dns": {
+          "status": "PASS",
+          "addresses": [
+            "35.201.127.49"
+          ]
+        },
+        "requests": [
+          {
+            "requested_url": "http://creaseiq-cricket-capstone.streamlit.app/",
+            "status_code": 200,
+            "final_url": "https://creaseiq-cricket-capstone.streamlit.app/",
+            "content_type": "text/html; charset=utf-8",
+            "redirects": [
+              {
+                "status": 303,
+                "url": "http://creaseiq-cricket-capstone.streamlit.app/",
+                "location": "https://share.streamlit.io/-/auth/app"
+              },
+              {
+                "status": 303,
+                "url": "https://share.streamlit.io/-/auth/app",
+                "location": "https://creaseiq-cricket-capstone.streamlit.app/-/login"
+              },
+              {
+                "status": 303,
+                "url": "https://creaseiq-cricket-capstone.streamlit.app/-/login",
+                "location": "https://creaseiq-cricket-capstone.streamlit.app/"
+              }
+            ],
+            "streamlit_shell": true
+          },
+          {
+            "requested_url": "https://creaseiq-cricket-capstone.streamlit.app/",
+            "status_code": 200,
+            "final_url": "https://creaseiq-cricket-capstone.streamlit.app/",
+            "content_type": "text/html; charset=utf-8",
+            "redirects": [
+              {
+                "status": 303,
+                "url": "https://creaseiq-cricket-capstone.streamlit.app/",
+                "location": "https://share.streamlit.io/-/auth/app"
+              },
+              {
+                "status": 303,
+                "url": "https://share.streamlit.io/-/auth/app",
+                "location": "https://creaseiq-cricket-capstone.streamlit.app/-/login"
+              },
+              {
+                "status": 303,
+                "url": "https://creaseiq-cricket-capstone.streamlit.app/-/login",
+                "location": "https://creaseiq-cricket-capstone.streamlit.app/"
+              }
+            ],
+            "streamlit_shell": true
+          }
+        ],
+        "reachable": true
+      },
+      "required": true
+    },
+    {
+      "test": "streamlit_ui",
+      "status": "PASS",
+      "detail": "Public Streamlit controls rendered in Chromium after deployment polling",
+      "required": true
+    },
+    {
+      "test": "deployed_revision",
+      "status": "PASS",
+      "detail": {
+        "expected": "9cca4e7c65cd02cf07ad4d6fc4cab0785cc274b8",
+        "observed": "9cca4e7c65cd02cf07ad4d6fc4cab0785cc274b8",
+        "dirty": false,
+        "attempts": 1
+      },
+      "required": true
+    },
+    {
+      "test": "workspace_Home/Overview",
+      "status": "PASS",
+      "detail": "Rendered without Streamlit exception; no AI generation buttons clicked",
+      "required": true
+    },
+    {
+      "test": "workspace_Player Profile",
+      "status": "PASS",
+      "detail": "Rendered without Streamlit exception; no AI generation buttons clicked",
+      "required": true
+    },
+    {
+      "test": "workspace_Team Matchups",
+      "status": "PASS",
+      "detail": "Rendered without Streamlit exception; no AI generation buttons clicked",
+      "required": true
+    },
+    {
+      "test": "workspace_Squad Analysis",
+      "status": "PASS",
+      "detail": "Rendered without Streamlit exception; no AI generation buttons clicked",
+      "required": true
+    },
+    {
+      "test": "workspace_Auction Trends",
+      "status": "PASS",
+      "detail": "Rendered without Streamlit exception; no AI generation buttons clicked",
+      "required": true
+    },
+    {
+      "test": "workspace_Player Comparison Lab",
+      "status": "PASS",
+      "detail": "Rendered without Streamlit exception; no AI generation buttons clicked",
+      "required": true
+    },
+    {
+      "test": "specialist_controls",
+      "status": "PASS",
+      "detail": "Changed player, team, franchise and auction selectors; inspected nonempty evidence packets without requesting reports",
+      "required": true
+    },
+    {
+      "test": "source_checksums",
+      "status": "PASS",
+      "detail": [
+        {
+          "table": "matches",
+          "source": "ipl_matches_clean_2008_2026.csv.gz",
+          "sha256": "d87bc7a891f8645469e58aac72337783dfd5cf808bbdc1c7ffa36c5ca4a02243",
+          "rows": 1243
+        },
+        {
+          "table": "deliveries",
+          "source": "ipl_deliveries_clean_2008_2026.csv.gz",
+          "sha256": "91a093240011f2700a3a92129d106a975fb54c3bdd89039ffe6751299f670a81",
+          "rows": 295732
+        },
+        {
+          "table": "wickets",
+          "source": "ipl_wickets_clean_2008_2026.csv.gz",
+          "sha256": "7fee068399a2fa672ab20bd73bdfeac95fa538f2ee925c57e40a7e1065f52c47",
+          "rows": 14705
+        },
+        {
+          "table": "innings",
+          "source": "ipl_innings_clean_2008_2026.csv.gz",
+          "sha256": "a1bfb25d12227983ecedb568014d11260f0d94fd015cc1134b93b6b0e57f280f",
+          "rows": 2514
+        }
+      ],
+      "required": true
+    },
+    {
+      "test": "Batting_2026-06-01_0",
+      "status": "PASS",
+      "detail": "IDs ['ba607b88', '740742ef']; Batting; 2008-04-18 <= date < 2026-06-01; Overall; 12 independent-series checks; DOM matches exports; 7.81s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Batting_2026-06-01_1",
+      "status": "PASS",
+      "detail": "IDs ['ba607b88', '740742ef']; Batting; 2008-04-18 <= date < 2026-06-01; Powerplay window (1\u20136); 12 independent-series checks; DOM matches exports; 9.02s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Batting_2026-06-01_2",
+      "status": "PASS",
+      "detail": "IDs ['ba607b88', '740742ef']; Batting; 2008-04-18 <= date < 2026-06-01; Middle overs (7\u201315); 12 independent-series checks; DOM matches exports; 8.53s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Batting_2026-06-01_3",
+      "status": "PASS",
+      "detail": "IDs ['ba607b88', '740742ef']; Batting; 2008-04-18 <= date < 2026-06-01; Death overs (16\u201320); 12 independent-series checks; DOM matches exports; 8.40s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Batting_2023-01-01_0",
+      "status": "PASS",
+      "detail": "IDs ['ba607b88', '740742ef']; Batting; 2008-04-18 <= date < 2023-01-01; Overall; 12 independent-series checks; DOM matches exports; 9.37s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Batting_2023-01-01_1",
+      "status": "PASS",
+      "detail": "IDs ['ba607b88', '740742ef']; Batting; 2008-04-18 <= date < 2023-01-01; Powerplay window (1\u20136); 12 independent-series checks; DOM matches exports; 8.97s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Batting_2023-01-01_2",
+      "status": "PASS",
+      "detail": "IDs ['ba607b88', '740742ef']; Batting; 2008-04-18 <= date < 2023-01-01; Middle overs (7\u201315); 12 independent-series checks; DOM matches exports; 8.61s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Batting_2023-01-01_3",
+      "status": "PASS",
+      "detail": "IDs ['ba607b88', '740742ef']; Batting; 2008-04-18 <= date < 2023-01-01; Death overs (16\u201320); 12 independent-series checks; DOM matches exports; 8.75s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Bowling_2026-06-01_0",
+      "status": "PASS",
+      "detail": "IDs ['462411b3', '5f547c8b']; Bowling; 2008-04-18 <= date < 2026-06-01; Overall; 12 independent-series checks; DOM matches exports; 11.19s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Bowling_2026-06-01_1",
+      "status": "PASS",
+      "detail": "IDs ['462411b3', '5f547c8b']; Bowling; 2008-04-18 <= date < 2026-06-01; Powerplay window (1\u20136); 12 independent-series checks; DOM matches exports; 7.98s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Bowling_2026-06-01_2",
+      "status": "PASS",
+      "detail": "IDs ['462411b3', '5f547c8b']; Bowling; 2008-04-18 <= date < 2026-06-01; Middle overs (7\u201315); 12 independent-series checks; DOM matches exports; 8.01s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Bowling_2026-06-01_3",
+      "status": "PASS",
+      "detail": "IDs ['462411b3', '5f547c8b']; Bowling; 2008-04-18 <= date < 2026-06-01; Death overs (16\u201320); 12 independent-series checks; DOM matches exports; 7.73s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Bowling_2023-01-01_0",
+      "status": "PASS",
+      "detail": "IDs ['462411b3', '5f547c8b']; Bowling; 2008-04-18 <= date < 2023-01-01; Overall; 12 independent-series checks; DOM matches exports; 8.48s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Bowling_2023-01-01_1",
+      "status": "PASS",
+      "detail": "IDs ['462411b3', '5f547c8b']; Bowling; 2008-04-18 <= date < 2023-01-01; Powerplay window (1\u20136); 12 independent-series checks; DOM matches exports; 8.00s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Bowling_2023-01-01_2",
+      "status": "PASS",
+      "detail": "IDs ['462411b3', '5f547c8b']; Bowling; 2008-04-18 <= date < 2023-01-01; Middle overs (7\u201315); 12 independent-series checks; DOM matches exports; 8.38s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "Bowling_2023-01-01_3",
+      "status": "PASS",
+      "detail": "IDs ['462411b3', '5f547c8b']; Bowling; 2008-04-18 <= date < 2023-01-01; Death overs (16\u201320); 12 independent-series checks; DOM matches exports; 7.72s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "duplicate_names",
+      "status": "PASS",
+      "detail": "IDs ['0bf15e52', '2a72fd4f']; Batting; 2008-04-18 <= date < 2026-06-01; Overall; 12 independent-series checks; DOM matches exports; 10.52s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "reference_335982_Batting",
+      "status": "PASS",
+      "detail": "IDs ['b8a55852', '725529bc']; Batting; 2008-04-18 <= date < 2008-04-19; Overall; 12 independent-series checks; DOM matches exports; 8.70s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "reference_335982_Bowling",
+      "status": "PASS",
+      "detail": "IDs ['e938e1bc', '91a4a398']; Bowling; 2008-04-18 <= date < 2008-04-19; Overall; 12 independent-series checks; DOM matches exports; 8.22s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "reference_981019_Batting",
+      "status": "PASS",
+      "detail": "IDs ['ba607b88', 'dcce6f09']; Batting; 2016-05-29 <= date < 2016-05-30; Overall; 12 independent-series checks; DOM matches exports; 9.72s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "reference_981019_Bowling",
+      "status": "PASS",
+      "detail": "IDs ['ffe699c0', '957532de']; Bowling; 2016-05-29 <= date < 2016-05-30; Overall; 12 independent-series checks; DOM matches exports; 8.03s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "reference_1082617_Batting",
+      "status": "PASS",
+      "detail": "IDs ['ba607b88', 'db584dad']; Batting; 2017-04-23 <= date < 2017-04-24; Overall; 12 independent-series checks; DOM matches exports; 9.66s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "reference_1082617_Bowling",
+      "status": "PASS",
+      "detail": "IDs ['4c5d73db', '94d7f855']; Bowling; 2017-04-23 <= date < 2017-04-24; Overall; 12 independent-series checks; DOM matches exports; 8.23s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "reference_1178424_Batting",
+      "status": "PASS",
+      "detail": "IDs ['ba607b88', 'a4cc73aa']; Batting; 2019-04-30 <= date < 2019-05-01; Overall; 12 independent-series checks; DOM matches exports; 9.47s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "reference_1178424_Bowling",
+      "status": "PASS",
+      "detail": "IDs ['7a8bd078', 'c6097d68']; Bowling; 2019-04-30 <= date < 2019-05-01; Overall; 12 independent-series checks; DOM matches exports; 8.43s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "reference_1216517_Batting",
+      "status": "PASS",
+      "detail": "IDs ['b17e2f24', '372455c4']; Batting; 2020-10-18 <= date < 2020-10-19; Overall; 12 independent-series checks; DOM matches exports; 9.76s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "reference_1216517_Bowling",
+      "status": "PASS",
+      "detail": "IDs ['462411b3', '8cf9814c']; Bowling; 2020-10-18 <= date < 2020-10-19; Overall; 12 independent-series checks; DOM matches exports; 8.62s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "reference_1370353_Batting",
+      "status": "PASS",
+      "detail": "IDs ['d5130a30', 'df5a6881']; Batting; 2023-05-29 <= date < 2023-05-30; Overall; 12 independent-series checks; DOM matches exports; 9.93s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "reference_1370353_Bowling",
+      "status": "PASS",
+      "detail": "IDs ['759ac88f', 'efc04be7']; Bowling; 2023-05-29 <= date < 2023-05-30; Overall; 12 independent-series checks; DOM matches exports; 8.20s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "independent_scorecards",
+      "status": "PASS",
+      "detail": "96 external field checks; 1 rate-display notes",
+      "required": true
+    },
+    {
+      "test": "empty_window",
+      "status": "PASS",
+      "detail": "IDs ['ba607b88', '740742ef']; Batting; 2000-01-01 <= date < 2001-01-01; Overall; 12 independent-series checks; DOM matches exports; 9.55s including interactions/downloads",
+      "required": true
+    },
+    {
+      "test": "invalid_dates",
+      "status": "PASS",
+      "detail": "Readable validation error, no exception panel",
+      "required": true
+    },
+    {
+      "test": "specialist_input_isolation",
+      "status": "PASS",
+      "detail": "Before/after JSON evidence packets identical under explicitly restored specialist selections",
+      "required": true
+    },
+    {
+      "test": "client_llm_requests",
+      "status": "PASS",
+      "detail": {
+        "attempts_blocked": [],
+        "ai_generation_buttons_clicked": 0
+      },
+      "required": true
+    },
+    {
+      "test": "live_specialist_generation",
+      "status": "NOT VERIFIED",
+      "detail": "Paid DeepSeek calls are prohibited for this audit; deterministic specialist evidence controls were tested",
+      "required": false
+    },
+    {
+      "test": "server_llm_traffic",
+      "status": "NOT VERIFIED",
+      "detail": "Browser cannot observe server-side provider traffic; no live specialist report requested",
+      "required": false
+    },
+    {
+      "test": "uncaught_browser_errors",
+      "status": "PASS",
+      "detail": [],
+      "required": true
+    },
+    {
+      "test": "unexported_dot_innings_verification",
+      "status": "NOT VERIFIED",
+      "detail": "Match-series export does not expose all dot/innings/raw-boundary inputs; no independent all-history claim",
+      "required": false
+    },
+    {
+      "test": "revision_stability",
+      "status": "PASS",
+      "detail": {
+        "after": "9cca4e7c65cd02cf07ad4d6fc4cab0785cc274b8",
+        "dirty": false
+      },
+      "required": true
+    },
+    {
+      "test": "memory_diagnostics",
+      "status": "PASS",
+      "detail": {
+        "before": {
+          "VmHWM_mib": 916.15,
+          "VmRSS_mib": 916.15,
+          "observed_cgroup_limit_bytes": "3221225472"
+        },
+        "after": {
+          "VmHWM_mib": 1241.35,
+          "VmRSS_mib": 1141.36,
+          "observed_cgroup_limit_bytes": "3221225472"
+        }
+      },
+      "required": true
+    }
+  ],
+  "polls": [
+    {
+      "attempt": 1,
+      "elapsed_seconds": 0,
+      "snapshot": {
+        "git_commit": "9cca4e7c65cd02cf07ad4d6fc4cab0785cc274b8",
+        "git_tracked_changes": false,
+        "entrypoint": "/mount/src/creaseiq-cricket-capstone/app.py",
+        "source_sha256": {
+          "app.py": "7e1bee2a41dcac41c84c010ec26abda6e9cb9df2bab978bbf9ddf5ef392c07c8",
+          "requirements.txt": "1b433d2981e77935dfa3b02fde28fc30c8516034880252eedab04d812229b4c6",
+          "src/metrics/query_engine.py": "321a50a47c60f19440c369d348cb8d6ac02faa2a8776978e7b5a091895db16a3",
+          "src/metrics/parquet_store.py": "d5ba08f0f3c2e93a4fc568e14ab11c65e59eec9a62f6643bebbd5200d6f69f35"
+        },
+        "packages": {
+          "streamlit": "1.66.1",
+          "pandas": "2.3.3",
+          "duckdb": "1.5.6",
+          "pyarrow": "23.0.1",
+          "openai": "2.54.0"
+        },
+        "process_memory": {
+          "VmHWM_mib": 916.15,
+          "VmRSS_mib": 916.15,
+          "observed_cgroup_limit_bytes": "3221225472"
+        },
+        "limitations": "Observed checkout/process data only. Cloud repository/branch settings, service memory allowance, endpoint health and hosted acceptance require separate verification. No credentials are inspected."
+      }
+    }
+  ]
+}

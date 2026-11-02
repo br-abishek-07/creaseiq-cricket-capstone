@@ -153,3 +153,15 @@ def test_missing_application_frame_is_not_silently_accepted():
  class Page:
   url=Frame.url;main_frame=Frame();frames=[main_frame]
  with pytest.raises(TimeoutError,match='same-host'):AppSurface(Page()).bind_app(timeout=0)
+
+
+def test_navigation_discards_previous_child_frame():
+ from hosted_audit.surface import AppSurface
+ class Page:
+  main_frame=object()
+  def goto(self,url):
+   self.main_frame=object()
+   return 'navigation-response'
+ host=Page();surface=AppSurface(host);surface.app=object()
+ assert surface.goto('https://creaseiq-cricket-capstone.streamlit.app/')=='navigation-response'
+ assert surface.app is host.main_frame
