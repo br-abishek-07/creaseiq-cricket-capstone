@@ -6,6 +6,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from hosted_audit.connectivity import DEFAULT_URL,probe,validate_url
 from hosted_audit.deployment import poll_revision
+from hosted_audit.surface import AppSurface
 from hosted_audit.validate import reconcile,number,close,validate_manifest
 
 PHASES=['Overall','Powerplay window (1–6)','Middle overs (7–15)','Death overs (16–20)']
@@ -187,7 +188,7 @@ def main():
         with sync_playwright() as playwright:
             browser=playwright.chromium.launch(executable_path=shutil.which('chromium'),headless=True,args=['--no-sandbox','--disable-dev-shm-usage'])
             context=browser.new_context(viewport={'width':1440,'height':1000},accept_downloads=True,permissions=['clipboard-read','clipboard-write'])
-            page=context.new_page();page.set_default_timeout(60000);ui=BrowserAudit(page,audit)
+            page=AppSurface(context.new_page());page.set_default_timeout(60000);ui=BrowserAudit(page,audit)
             errors=[];providers=[]
             page.on('pageerror',lambda e:errors.append(str(e)))
             def route_request(route):
@@ -200,7 +201,8 @@ def main():
                     wake=page.get_by_role('button',name=re.compile(r'Yes, get this app back up',re.I))
                     if wake.is_visible():wake.click()
                     try:
-                        page.get_by_text('Home/Overview',exact=True).wait_for(timeout=45000)
+                        frame_url=page.bind_app(timeout=45000)
+                        audit.context['application_frame_url']=frame_url
                     except Exception as exc:
                         surface={'title':page.title(),'url':page.url.split('?')[0],
                                  'frames':[{'url':frame.url.split('?')[0],'body':frame.locator('body').inner_text(timeout=3000)[:2500]} for frame in page.frames]}

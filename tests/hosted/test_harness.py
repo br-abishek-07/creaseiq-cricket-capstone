@@ -121,3 +121,35 @@ def test_temporary_startup_error_can_recover():
   return {'git_commit':'new','git_tracked_changes':False}
  result=poll_revision(read,'new',timeout=10,interval=5,clock=clock.time,pause=clock.pause)
  assert result['ready'] and 'still starting' in result['attempts'][0]['error']
+
+
+def test_app_frame_binding_ignores_foreign_frames_and_keeps_page_events():
+ from hosted_audit.surface import AppSurface
+ class Frame:
+  def __init__(self,url,visible):self.url=url;self.visible=visible
+  def get_by_text(self,*a,**k):return self
+  def is_visible(self):return self.visible
+  def evaluate(self,value):return ('frame',value)
+ class Page:
+  url='https://creaseiq-cricket-capstone.streamlit.app/'
+  main_frame=Frame(url,False)
+  frames=[main_frame,Frame('https://third-party.example/',True),Frame(url+'~/+/',True)]
+  def expect_download(self):return 'page-download-event'
+  def screenshot(self):return 'page-screenshot'
+ host=Page();surface=AppSurface(host)
+ assert surface.bind_app(timeout=0)==host.url+'~/+/'
+ assert surface.app is host.frames[-1]
+ assert surface.evaluate('payload')==('frame','payload')
+ assert surface.expect_download()=='page-download-event'
+ assert surface.screenshot()=='page-screenshot'
+
+
+def test_missing_application_frame_is_not_silently_accepted():
+ from hosted_audit.surface import AppSurface
+ class Frame:
+  url='https://creaseiq-cricket-capstone.streamlit.app/'
+  def get_by_text(self,*a,**k):return self
+  def is_visible(self):return False
+ class Page:
+  url=Frame.url;main_frame=Frame();frames=[main_frame]
+ with pytest.raises(TimeoutError,match='same-host'):AppSurface(Page()).bind_app(timeout=0)

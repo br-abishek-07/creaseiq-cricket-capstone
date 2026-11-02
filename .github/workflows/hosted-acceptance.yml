@@ -38,7 +38,7 @@ jobs:
         run: |
           mkdir -p hosted-evidence
           set -o pipefail
-          python scripts/hosted_acceptance.py --url https://creaseiq-cricket-capstone.streamlit.app/ --expected-commit "$EXPECTED_COMMIT" --output-dir hosted-evidence --deployment-wait-seconds 0 2>&1 | tee hosted-evidence/execution.log
+          python scripts/hosted_acceptance.py --url https://creaseiq-cricket-capstone.streamlit.app/ --expected-commit "$EXPECTED_COMMIT" --output-dir hosted-evidence 2>&1 | tee hosted-evidence/execution.log
       - name: Upload evidence even when blocked or failed
         if: always()
         uses: actions/upload-artifact@v4
