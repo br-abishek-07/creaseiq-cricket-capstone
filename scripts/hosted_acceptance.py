@@ -55,8 +55,12 @@ class BrowserAudit:
         viewer=viewer if viewer is not None else self.page.get_by_test_id('stJson').last
         # The visual JSON tree omits commas. Use its root copy control to read
         # the actual JSON payload; do not repair or infer a schema from the text.
-        viewer.locator('.object-key-val').first.hover()
-        viewer.locator('.copy-to-clipboard-container').last.click()
+        self.page.evaluate("navigator.clipboard.writeText('')")
+        # Large JSON trees move their copy control when scrolled/hovered.
+        # Dispatch its UI click handler directly, rather than clicking unstable
+        # coordinates. This reads the viewer payload, never application internals.
+        viewer.locator('.copy-to-clipboard-container').last.locator('span').first.dispatch_event('click')
+        self.page.wait_for_function("async () => (await navigator.clipboard.readText()).length > 0",timeout=10000)
         return json.loads(self.page.evaluate('navigator.clipboard.readText()'))
     def diagnostic(self,key):
         self.route('Home/Overview');self.page.get_by_text('Deployment diagnostics',exact=True).click();self.settle()
