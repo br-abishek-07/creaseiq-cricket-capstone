@@ -14,7 +14,7 @@ import pytest
 DEV_FILES = {
     'test_agent_runtime.py','test_data_runtime.py','test_auction_agent.py','test_matchup_agent.py',
     'test_scout_agent.py','test_squad_agent.py','test_moneyball.py','test_home_overview.py',
-    'test_deployment_info.py','test_player_comparison_engine.py','test_post_integration_qa.py','test_independent_scorecards.py','test_comparison_ux_qa.py',
+    'test_harness.py','test_deployment_info.py','test_player_comparison_engine.py','test_post_integration_qa.py','test_independent_scorecards.py','test_comparison_ux_qa.py',
 }
 SHARED_FILES = {'test_core.py','test_rebrand.py'}
 PRODUCTION_NODES = {

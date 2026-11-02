@@ -1,0 +1,54 @@
+name: Hosted Streamlit acceptance
+on:
+  workflow_dispatch:
+    inputs:
+      expected_commit:
+        description: 'Expected hosted Git SHA; leave empty to require this workflow revision'
+        required: false
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: hosted-streamlit-acceptance-development
+  cancel-in-progress: false
+jobs:
+  hosted-audit:
+    if: github.ref == 'refs/heads/dev-phase1-ui'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install independent browser harness
+        run: |
+          python -m pip install -r requirements-hosted-audit.txt
+          python -m playwright install --with-deps chromium
+      - name: Check harness validators
+        run: python -m pytest tests/hosted -q
+      - name: Public connectivity and read-only browser acceptance
+        env:
+          EXPECTED_COMMIT: ${{ inputs.expected_commit || github.sha }}
+        run: |
+          mkdir -p hosted-evidence
+          set -o pipefail
+          python scripts/hosted_acceptance.py --url https://creaseiq-cricket-capstone.streamlit.app/ --expected-commit "$EXPECTED_COMMIT" --output-dir hosted-evidence 2>&1 | tee hosted-evidence/execution.log
+      - name: Upload evidence even when blocked or failed
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hosted-streamlit-acceptance-${{ github.run_id }}
+          path: hosted-evidence/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Audit summary
+        if: always()
+        run: |
+          if [ -f hosted-evidence/ACCEPTANCE_REPORT.md ]; then
+            cat hosted-evidence/ACCEPTANCE_REPORT.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Audit did not reach report generation; inspect setup/job logs. No hosted validation established.' >> "$GITHUB_STEP_SUMMARY"
+          fi
