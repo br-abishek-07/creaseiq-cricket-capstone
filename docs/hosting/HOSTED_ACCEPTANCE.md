@@ -134,3 +134,17 @@ workflow-dispatch operation; the local GitHub CLI reports invalid authentication
 Consequently this session cannot honestly provide a new hosted Actions run URL
 until an authenticated owner dispatches the manual workflow. No hosted audit
 completion or uploaded GitHub artifact is implied by adding these files.
+
+## Temporary automatic execution authorized on 2 November 2026
+
+For this audit only, the owner authorized a push trigger restricted to
+`dev-phase1-ui` so GitHub Actions can register and execute the workflow without
+GitHub CLI installation. It is removed after the hosted run completes. `main`
+and the existing four-job contract workflow remain unchanged.
+
+The browser polls for the exact intended clean checkout for up to 600 seconds,
+with bounded individual browser operations and a 15-second retry interval.
+`deployment_poll.json` records each observed revision or startup error. A stale
+revision at timeout is NOT VERIFIED (deployment/access blocked), not an
+application failure. If the revision changes during the workload, revision
+stability is NOT VERIFIED and the audit cannot declare acceptance.

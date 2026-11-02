@@ -87,3 +87,37 @@ def test_unreached_required_gate_is_not_verified(tmp_path):
  audit=Audit(tmp_path);audit.planned=['connectivity','downloads'];audit.gate('connectivity','PASS')
  assert audit.write()==2
  assert audit.results[-1]['status']=='NOT VERIFIED'
+
+
+def fake_clock():
+ class Clock:
+  now=0
+  def time(self):return self.now
+  def pause(self,seconds):self.now+=seconds
+ return Clock()
+
+
+def test_deployment_lag_retries_until_clean_intended_revision():
+ from hosted_audit.deployment import poll_revision
+ clock=fake_clock();values=iter([{'git_commit':'old','git_tracked_changes':False},{'git_commit':'new','git_tracked_changes':True},{'git_commit':'new','git_tracked_changes':False}])
+ result=poll_revision(lambda:next(values),'new',timeout=30,interval=5,clock=clock.time,pause=clock.pause)
+ assert result['ready'] and len(result['attempts'])==3 and clock.now==10
+
+
+def test_stale_deployment_is_bounded_and_not_ready():
+ from hosted_audit.deployment import poll_revision
+ clock=fake_clock();records=[]
+ result=poll_revision(lambda:{'git_commit':'old'},'new',timeout=12,interval=5,clock=clock.time,pause=clock.pause,record=lambda value:records.append(value.copy()))
+ assert not result['ready'] and clock.now==12 and len(result['attempts'])==4
+ assert len(records)==4
+
+
+def test_temporary_startup_error_can_recover():
+ from hosted_audit.deployment import poll_revision
+ clock=fake_clock();calls=[]
+ def read():
+  calls.append(1)
+  if len(calls)==1:raise TimeoutError('still starting')
+  return {'git_commit':'new','git_tracked_changes':False}
+ result=poll_revision(read,'new',timeout=10,interval=5,clock=clock.time,pause=clock.pause)
+ assert result['ready'] and 'still starting' in result['attempts'][0]['error']

@@ -5,6 +5,7 @@ from datetime import date,timedelta
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from hosted_audit.connectivity import DEFAULT_URL,probe,validate_url
+from hosted_audit.deployment import poll_revision
 from hosted_audit.validate import reconcile,number,close,validate_manifest
 
 PHASES=['Overall','Powerplay window (1–6)','Middle overs (7–15)','Death overs (16–20)']
@@ -13,6 +14,10 @@ ROUTES={'Home/Overview':'IPL Intelligence 360°','Player Profile':'Player Profil
 LABELS={'Runs':'runs','Balls faced':'balls_faced','Strike rate':'strike_rate','Batting average':'batting_average','Batter dot %':'dot_ball_percentage',
         'Dismissals':'dismissals','Matches represented':'matches','Innings represented':'innings','Legal balls':'legal_balls','Runs charged':'runs_charged',
         'Economy':'economy','Bowler wickets':'wickets','Bowling strike rate':'bowling_strike_rate','Bowling dot %':'dot_ball_percentage'}
+
+class DeploymentPending(RuntimeError):
+    pass
+
 
 class Audit:
     def __init__(self,out):
@@ -161,9 +166,11 @@ class BrowserAudit:
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--url',default=DEFAULT_URL);parser.add_argument('--expected-commit',required=True)
+    parser.add_argument('--deployment-wait-seconds',type=int,default=600)
     parser.add_argument('--output-dir',type=Path,default=Path('.runtime/hosted-audit'));parser.add_argument('--reference-file',type=Path,default=Path(__file__).resolve().parents[1]/'tests/fixtures/independent_ipl_scorecards.json')
     args=parser.parse_args();validate_url(args.url)
     if not re.fullmatch('[0-9a-f]{40}',args.expected_commit):parser.error('Expected commit must be a full lowercase Git SHA')
+    if not 0<=args.deployment_wait_seconds<=1200:parser.error('Deployment wait must be between 0 and 1200 seconds')
     audit=Audit(args.output_dir);page=None;browser=None
     audit.context={'url':args.url,'execution_kind':'LOCAL harness validation' if '127.0.0.1' in args.url or 'localhost' in args.url else 'PUBLIC hosted audit','expected_commit':args.expected_commit,'started_utc':datetime.now(timezone.utc).isoformat(),'reference_fixture_sha256':hashlib.sha256(args.reference_file.read_bytes()).hexdigest()}
     audit.planned=['runner_connectivity','streamlit_ui','deployed_revision','specialist_controls','specialist_input_isolation','source_checksums','independent_scorecards','invalid_dates','client_llm_requests','uncaught_browser_errors','memory_diagnostics','revision_stability','duplicate_names','empty_window']+['workspace_'+route for route in ROUTES]+[mode+'_'+cutoff+'_'+str(i) for mode in ['Batting','Bowling'] for cutoff in ['2026-06-01','2023-01-01'] for i in range(4)]
@@ -186,12 +193,30 @@ def main():
             def route_request(route):
                 providers.append(route.request.url.split('?')[0]);route.abort()
             context.route(re.compile(r'https://api\.(deepseek|openai)\.com/.*'),route_request)
+            deployment_ready=False
             try:
-                page.goto(args.url,wait_until='domcontentloaded',timeout=90000)
-                page.get_by_text('Home/Overview',exact=True).wait_for(timeout=180000);ui.settle();ui.exceptions()
-                audit.gate('streamlit_ui','PASS','Target Streamlit controls rendered in Chromium')
-                before=ui.diagnostic('before')
-                audit.gate('deployed_revision','PASS' if before.get('git_commit')==args.expected_commit and before.get('git_tracked_changes') is False else 'FAIL',{'expected':args.expected_commit,'observed':before.get('git_commit'),'dirty':before.get('git_tracked_changes')})
+                def read_deployment():
+                    page.goto(args.url,wait_until='domcontentloaded',timeout=30000)
+                    wake=page.get_by_role('button',name=re.compile(r'Yes, get this app back up',re.I))
+                    if wake.is_visible():wake.click()
+                    page.get_by_text('Home/Overview',exact=True).wait_for(timeout=45000)
+                    ui.settle();ui.exceptions()
+                    return ui.diagnostic('deployment_poll')
+                def record_poll(result):
+                    (audit.out/'deployment_poll.json').write_text(json.dumps(result,indent=2)+'\n')
+                    last=result['attempts'][-1]
+                    print(json.dumps({'deployment_poll':last}),flush=True)
+                    if not result['ready']:
+                        page.screenshot(path=str(audit.out/f'startup_attempt_{last["attempt"]}.png'))
+                readiness=poll_revision(read_deployment,args.expected_commit,timeout=args.deployment_wait_seconds,record=record_poll)
+                deployment_ready=readiness['ready']
+                if not deployment_ready:
+                    audit.gate('deployed_revision','NOT VERIFIED',{'reason':'Intended clean revision was not observed within the deployment wait; possible deployment lag or access blocker, not an established application defect','poll_log':'deployment_poll.json','expected':args.expected_commit})
+                    raise DeploymentPending('Hosted revision not ready; remaining tests are blocked. See deployment_poll.json')
+                audit.gate('streamlit_ui','PASS','Public Streamlit controls rendered in Chromium after deployment polling')
+                before=readiness['attempts'][-1]['snapshot'];audit.diagnostics['before']=before
+                (audit.out/'diagnostics_before.json').write_text(json.dumps(before,indent=2)+'\n')
+                audit.gate('deployed_revision','PASS',{'expected':args.expected_commit,'observed':before.get('git_commit'),'dirty':before.get('git_tracked_changes'),'attempts':len(readiness['attempts'])})
                 for route in ROUTES:
                     ui.route(route);page.screenshot(path=str(audit.out/('workspace_'+route.replace('/','_').replace(' ','_')+'.png')))
                     audit.gate('workspace_'+route,'PASS','Rendered without Streamlit exception; no AI generation buttons clicked')
@@ -237,7 +262,7 @@ def main():
             finally:
                 try:
                     after=ui.diagnostic('after')
-                    audit.gate('revision_stability','PASS' if after.get('git_commit')==args.expected_commit and after.get('git_tracked_changes') is False else 'FAIL',{'after':after.get('git_commit'),'dirty':after.get('git_tracked_changes')})
+                    audit.gate('revision_stability','PASS' if deployment_ready and after.get('git_commit')==args.expected_commit and after.get('git_tracked_changes') is False else 'NOT VERIFIED',{'after':after.get('git_commit'),'dirty':after.get('git_tracked_changes')})
                     audit.gate('memory_diagnostics','PASS',{'before':audit.diagnostics.get('before',{}).get('process_memory'),'after':after.get('process_memory')})
                 except Exception as exc:audit.gate('memory_diagnostics','NOT VERIFIED',str(exc))
                 browser.close()

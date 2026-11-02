@@ -1,5 +1,8 @@
 name: Hosted Streamlit acceptance
 on:
+  # Temporary bootstrap: remove after this hosted audit finishes.
+  push:
+    branches: [dev-phase1-ui]
   workflow_dispatch:
     inputs:
       expected_commit:
