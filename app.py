@@ -831,6 +831,9 @@ if selected_module == "Home/Overview":
     )
     with st.expander("Dataset availability"):
         st.dataframe(pd.DataFrame(home_status["dataset_rows"]), hide_index=True, width="stretch")
+    with st.expander("Deployment diagnostics"):
+        from deployment_info import deployment_info
+        st.json(deployment_info(Path(__file__).resolve().parent))
 
 
 elif selected_module == "Player Comparison Lab":

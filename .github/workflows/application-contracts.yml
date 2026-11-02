@@ -1,0 +1,57 @@
+name: Application contracts
+on:
+  push:
+    branches: [dev-phase1-ui]
+  pull_request:
+    branches: [dev-phase1-ui]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  contract:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: shared-development
+            target: shared
+            ref: current
+          - name: development
+            target: development
+            ref: current
+          - name: shared-production
+            target: shared
+            ref: main
+          - name: production
+            target: production
+            ref: main
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          path: application
+          ref: ${{ matrix.ref == 'current' && github.sha || matrix.ref }}
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install application dependencies and pytest
+        run: python -m pip install -r application/requirements.txt 'pytest>=8,<10'
+      - name: Validate dependencies
+        run: python -m pip check
+      - name: Check selector policy
+        run: python harness/ci/check_contracts.py
+      - name: Run the explicit application contract
+        run: python harness/ci/test_targets.py --target '${{ matrix.target }}' --app-root application --junitxml '${{ github.workspace }}/results/${{ matrix.name }}.xml'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ matrix.name }}
+          path: results/*.xml
+          if-no-files-found: warn

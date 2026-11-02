@@ -1,0 +1,52 @@
+{
+  "baseline": "b60c0a97194903d1b3a01c22ddd4e61a2db6c3f9",
+  "cloud_access": "NOT VERIFIED: no authenticated session or logs; remote reader could not open reported URL",
+  "intended_source": {
+    "repository": "br-abishek-07/creaseiq-cricket-capstone",
+    "branch": "dev-phase1-ui",
+    "entrypoint": "app.py"
+  },
+  "configured_cloud_source": "NOT VERIFIED",
+  "actual_cloud_memory_allowance": "NOT VERIFIED",
+  "local_performance": {
+    "environment": "fresh Python 3.12 venv (no system site packages), clean Git worktree, no derived cache or secrets",
+    "home_seconds": 1.679,
+    "first_lab_seconds": 22.546,
+    "warm_lab_rerun_seconds": 1.571,
+    "home_current_rss_mib": 254.61,
+    "lab_current_rss_mib": 344.7,
+    "peak_process_rss_mib": 653.44,
+    "query_repetitions": 20,
+    "query_median_seconds": 0.1741,
+    "query_p95_seconds": 0.2159,
+    "query_min_seconds": 0.1192,
+    "query_max_seconds": 0.2189,
+    "manifest_reuse_seconds": 0.0099,
+    "dataset_version": "1587d6753cfe50f1ef6a992198597598bff99eb3bccfe963760a27c1a20f00ca",
+    "parquet_bytes": 2385428
+  },
+  "targets": {
+    "shared_dev": 59,
+    "development": 149,
+    "production_main": 12,
+    "shared_main": 59
+  },
+  "selector_policy_checks": 4,
+  "live_api_calls": 0,
+  "github_actions_execution": "NOT VERIFIED until run observed",
+  "unrestricted_suite": {
+    "passed": 208,
+    "failed": 12,
+    "subtests_passed": 168,
+    "new_failure_ids": []
+  },
+  "diagnostics_and_home_checks": {
+    "passed": 9,
+    "failed": 0
+  },
+  "wrong_application_contract": {
+    "command": "python ci/test_targets.py --target production (on dev)",
+    "exit_code": 2,
+    "result": "refused before tests"
+  }
+}

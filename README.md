@@ -1,3 +1,5 @@
+Hosted demo / CI: [deployment verification runbook](docs/HOSTED_DEMO_RUNBOOK.md). Explicit shared, dev and production targets preserve existing assertions; hosted status still requires owner verification.
+
 # Development branch — IPL Intelligence 360°
 
 This `dev-phase1-ui` branch runs the Streamlit dashboard with Player Profile,
