@@ -199,7 +199,14 @@ def main():
                     page.goto(args.url,wait_until='domcontentloaded',timeout=30000)
                     wake=page.get_by_role('button',name=re.compile(r'Yes, get this app back up',re.I))
                     if wake.is_visible():wake.click()
-                    page.get_by_text('Home/Overview',exact=True).wait_for(timeout=45000)
+                    try:
+                        page.get_by_text('Home/Overview',exact=True).wait_for(timeout=45000)
+                    except Exception as exc:
+                        surface={'title':page.title(),'url':page.url.split('?')[0],
+                                 'frames':[{'url':frame.url.split('?')[0],'body':frame.locator('body').inner_text(timeout=3000)[:2500]} for frame in page.frames]}
+                        (audit.out/'startup_surface.json').write_text(json.dumps(surface,indent=2)+'\n')
+                        print(json.dumps({'startup_surface':surface}),flush=True)
+                        raise exc
                     ui.settle();ui.exceptions()
                     return ui.diagnostic('deployment_poll')
                 def record_poll(result):
