@@ -1,0 +1,8 @@
+{
+  "reported_development_url": "https://creaseiq-cricket-capstone.streamlit.app/",
+  "attempt_date": "2026-11-02",
+  "method": "remote web-reader open",
+  "result": "NOT VERIFIED",
+  "reason": "URL not accessible through available remote reader; no authenticated Streamlit session or Cloud logs available. This does not establish that the app is down.",
+  "hosted_commit": null
+}

@@ -1,0 +1,16 @@
+{
+  "clean_install_startup": "PASS",
+  "first_conversion_cache_reuse": "PASS",
+  "cached_integrity": "PASS",
+  "cricket_cutoff": "PASS",
+  "sampled_external_scorecards": "PASS",
+  "existing_features_filter_isolation": "PASS",
+  "desktop_mobile_exports": "PASS",
+  "local_single_user_query_responsiveness": "PASS",
+  "small_host_memory_capacity": "NOT VERIFIED",
+  "unrestricted_repository_ci": "FAIL",
+  "streamlit_cloud_runtime": "NOT VERIFIED",
+  "live_deepseek": "NOT VERIFIED",
+  "sustained_multi_user_load": "NOT VERIFIED",
+  "physical_mobile_devices": "NOT VERIFIED"
+}

@@ -1,0 +1,30 @@
+{
+  "viewport_widths": [
+    1440,
+    390
+  ],
+  "page_errors": [],
+  "exception_panels": 0,
+  "routes_visited": 6,
+  "search": "Kohli -> ba607b88",
+  "duplicate_names_verified": [
+    "0bf15e52",
+    "2a72fd4f"
+  ],
+  "downloads": [
+    "metrics.csv",
+    "series.csv",
+    "scope.json"
+  ],
+  "metrics_player_ids": [
+    "ba607b88",
+    "740742ef"
+  ],
+  "scope_matches_downloaded_metrics": true,
+  "mobile_page_overflow": false,
+  "mobile_controls": [
+    "phase",
+    "bowling mode",
+    "player search"
+  ]
+}

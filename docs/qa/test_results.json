@@ -1,0 +1,61 @@
+{
+  "audited_baseline_commit": "76a29063bb854552745f58298d0a6ac8dd65a1c4",
+  "production_reference_commit": "85e0b5f3c34dd18d15447a96e229c0e37e7047da",
+  "baseline_full": {
+    "passed": 158,
+    "failed": 12,
+    "skipped": 0,
+    "subtests_passed": 168
+  },
+  "corrected_full": {
+    "passed": 204,
+    "failed": 12,
+    "skipped": 0,
+    "subtests_passed": 168
+  },
+  "production_reference_targeted": {
+    "passed": 12,
+    "failed": 0,
+    "subtests_passed": 100
+  },
+  "new_tests": {
+    "passed": 46,
+    "failed": 0
+  },
+  "remaining_failure_ids": [
+    "tests/test_accuracy.py::DossierInterface::test_overview_and_ambiguous_name",
+    "tests/test_runtime.py::ReleaseRuntime::test_01_previous_package_cannot_break_home_or_brief",
+    "tests/test_runtime.py::ReleaseRuntime::test_06_code_update_invalidates_data_cache_in_same_session",
+    "tests/test_startup.py::Startup::test_cached_generic_modules_do_not_break_startup",
+    "tests/test_startup.py::Startup::test_startup_from_another_working_directory",
+    "tests/test_ui.py::Interface::test_01_home_and_presets",
+    "tests/test_ui.py::Interface::test_02_all_team_workspaces_and_themes",
+    "tests/test_ui.py::Interface::test_03_stale_brief_hidden_after_filter_change",
+    "tests/test_ui.py::Interface::test_04_stale_after_scenario_and_question",
+    "tests/test_ui.py::Interface::test_05_private_journal_and_review",
+    "tests/test_ui.py::Interface::test_06_historical_cutoff_safe",
+    "tests/test_ui.py::Interface::test_07_multiple_capability_assumptions"
+  ],
+  "new_failure_ids": [],
+  "production_test_files_unchanged": true,
+  "current_dev_gate": {
+    "passed": 145,
+    "failed": 0,
+    "skipped": 0,
+    "subtests_passed": 23
+  },
+  "commands": {
+    "baseline_full": "python -m pytest -q (before corrections)",
+    "corrected_full": "python -m pytest -q",
+    "targeted_dev": "python -m pytest -q tests/test_agent_runtime.py tests/test_data_runtime.py tests/test_auction_agent.py tests/test_matchup_agent.py tests/test_scout_agent.py tests/test_squad_agent.py tests/test_moneyball.py tests/test_home_overview.py tests/test_player_comparison_engine.py tests/test_post_integration_qa.py tests/test_independent_scorecards.py tests/test_comparison_ux_qa.py",
+    "production_reference": "python -m pytest -q tests/test_accuracy.py::DossierInterface tests/test_runtime.py::ReleaseRuntime::test_01_previous_package_cannot_break_home_or_brief tests/test_runtime.py::ReleaseRuntime::test_06_code_update_invalidates_data_cache_in_same_session tests/test_startup.py::Startup::test_cached_generic_modules_do_not_break_startup tests/test_startup.py::Startup::test_startup_from_another_working_directory tests/test_ui.py (unchanged main reference checkout)"
+  },
+  "independent_metrics": {
+    "matches": 6,
+    "records": 36,
+    "metric_comparisons": 144,
+    "passed": 144,
+    "failed": 0,
+    "external_display_rounding_discrepancies": 1
+  }
+}

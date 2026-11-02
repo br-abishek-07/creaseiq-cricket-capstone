@@ -1,0 +1,6 @@
+{
+  "VmHWM_mib": 916.77,
+  "VmRSS_mib": 718.54,
+  "context": "actual local Streamlit server after visiting all six workspaces; derived cache was already built",
+  "port": 8540
+}

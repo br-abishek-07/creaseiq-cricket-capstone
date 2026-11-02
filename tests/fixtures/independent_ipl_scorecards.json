@@ -1,0 +1,491 @@
+{
+  "method": "Manually transcribed external scorecards, not generated from Cricsheet. Rates derive from the transcribed primitives; source display rates are recorded separately to expose rounding differences.",
+  "matches": [
+    {
+      "match_id": "335982",
+      "date": "2008-04-18",
+      "selection_reason": "Bengaluru; high-scoring opener, byes/leg-byes/wides",
+      "reference_source": "https://www.cricbuzz.com/live-cricket-scorecard/10557/rcb-vs-kkr-1st-match-indian-t20-league-2008",
+      "accessed_date": "2026-11-02",
+      "records": [
+        {
+          "player_id": "b8a55852",
+          "player_name": "Brendon McCullum",
+          "type": "Batting",
+          "expected": {
+            "runs": 158,
+            "balls_faced": 73,
+            "dismissals": 0,
+            "strike_rate": 216.43835616438355
+          },
+          "reference_display_rate": 216.44
+        },
+        {
+          "player_id": "725529bc",
+          "player_name": "Sourav Ganguly",
+          "type": "Batting",
+          "expected": {
+            "runs": 10,
+            "balls_faced": 12,
+            "dismissals": 1,
+            "strike_rate": 83.33333333333333
+          },
+          "reference_display_rate": 83.33
+        },
+        {
+          "player_id": "e938e1bc",
+          "player_name": "Praveen Kumar",
+          "type": "Batting",
+          "expected": {
+            "runs": 18,
+            "balls_faced": 15,
+            "dismissals": 0,
+            "strike_rate": 120.0
+          },
+          "reference_display_rate": 120
+        },
+        {
+          "player_id": "e938e1bc",
+          "player_name": "Praveen Kumar",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 24,
+            "runs_charged": 38,
+            "wickets": 0,
+            "economy": 9.5
+          },
+          "reference_display_rate": 9.5
+        },
+        {
+          "player_id": "91a4a398",
+          "player_name": "Zaheer Khan",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 24,
+            "runs_charged": 38,
+            "wickets": 1,
+            "economy": 9.5
+          },
+          "reference_display_rate": 9.5
+        },
+        {
+          "player_id": "fa463154",
+          "player_name": "Ajit Agarkar",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 24,
+            "runs_charged": 25,
+            "wickets": 3,
+            "economy": 6.25
+          },
+          "reference_display_rate": 6.25
+        }
+      ]
+    },
+    {
+      "match_id": "981019",
+      "date": "2016-05-29",
+      "selection_reason": "Bengaluru final; high total and run-out dismissal",
+      "reference_source": "https://www.cricbuzz.com/live-cricket-scorecard/16448/rcb-vs-srh-final-indian-premier-league-2016",
+      "accessed_date": "2026-11-02",
+      "records": [
+        {
+          "player_id": "ba607b88",
+          "player_name": "Virat Kohli",
+          "type": "Batting",
+          "expected": {
+            "runs": 54,
+            "balls_faced": 35,
+            "dismissals": 1,
+            "strike_rate": 154.28571428571428
+          },
+          "reference_display_rate": 154.29
+        },
+        {
+          "player_id": "dcce6f09",
+          "player_name": "David Warner",
+          "type": "Batting",
+          "expected": {
+            "runs": 69,
+            "balls_faced": 38,
+            "dismissals": 1,
+            "strike_rate": 181.57894736842104
+          },
+          "reference_display_rate": 181.58
+        },
+        {
+          "player_id": "ffe699c0",
+          "player_name": "Chris Jordan",
+          "type": "Batting",
+          "expected": {
+            "runs": 3,
+            "balls_faced": 4,
+            "dismissals": 1,
+            "strike_rate": 75.0
+          },
+          "reference_display_rate": 75
+        },
+        {
+          "player_id": "ffe699c0",
+          "player_name": "Chris Jordan",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 24,
+            "runs_charged": 45,
+            "wickets": 3,
+            "economy": 11.25
+          },
+          "reference_display_rate": 11.25
+        },
+        {
+          "player_id": "957532de",
+          "player_name": "Sreenath Aravind",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 24,
+            "runs_charged": 30,
+            "wickets": 2,
+            "economy": 7.5
+          },
+          "reference_display_rate": 7.5
+        },
+        {
+          "player_id": "2e81a32d",
+          "player_name": "Bhuvneshwar Kumar",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 24,
+            "runs_charged": 25,
+            "wickets": 0,
+            "economy": 6.25
+          },
+          "reference_display_rate": 6.25
+        }
+      ]
+    },
+    {
+      "match_id": "1082617",
+      "date": "2017-04-23",
+      "selection_reason": "Eden Gardens collapse; two no-balls, wides and leg-byes",
+      "reference_source": "https://www.cricbuzz.com/live-cricket-scorecard/18147/kkr-vs-rcb-27th-match-indian-premier-league-2017",
+      "accessed_date": "2026-11-02",
+      "records": [
+        {
+          "player_id": "ba607b88",
+          "player_name": "Virat Kohli",
+          "type": "Batting",
+          "expected": {
+            "runs": 0,
+            "balls_faced": 1,
+            "dismissals": 1,
+            "strike_rate": 0.0
+          },
+          "reference_display_rate": 0
+        },
+        {
+          "player_id": "db584dad",
+          "player_name": "Chris Gayle",
+          "type": "Batting",
+          "expected": {
+            "runs": 7,
+            "balls_faced": 17,
+            "dismissals": 1,
+            "strike_rate": 41.1764705882353
+          },
+          "reference_display_rate": 41.18
+        },
+        {
+          "player_id": "957532de",
+          "player_name": "Sreenath Aravind",
+          "type": "Batting",
+          "expected": {
+            "runs": 5,
+            "balls_faced": 4,
+            "dismissals": 0,
+            "strike_rate": 125.0
+          },
+          "reference_display_rate": 125
+        },
+        {
+          "player_id": "4c5d73db",
+          "player_name": "Chris Woakes",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 12,
+            "runs_charged": 6,
+            "wickets": 3,
+            "economy": 3.0
+          },
+          "reference_display_rate": 3
+        },
+        {
+          "player_id": "94d7f855",
+          "player_name": "Colin de Grandhomme",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 10,
+            "runs_charged": 4,
+            "wickets": 3,
+            "economy": 2.4
+          },
+          "reference_display_rate": 2.4
+        },
+        {
+          "player_id": "56ab442f",
+          "player_name": "Nathan Coulter-Nile",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 18,
+            "runs_charged": 21,
+            "wickets": 3,
+            "economy": 7.0
+          },
+          "reference_display_rate": 7
+        }
+      ]
+    },
+    {
+      "match_id": "1178424",
+      "date": "2019-04-30",
+      "selection_reason": "Bengaluru five-over rain-shortened no-result; no-ball and byes",
+      "reference_source": "https://www.cricbuzz.com/live-cricket-scorecard/22484/rcb-vs-rr-49th-match-indian-premier-league-2019",
+      "accessed_date": "2026-11-02",
+      "records": [
+        {
+          "player_id": "ba607b88",
+          "player_name": "Virat Kohli",
+          "type": "Batting",
+          "expected": {
+            "runs": 25,
+            "balls_faced": 7,
+            "dismissals": 1,
+            "strike_rate": 357.14285714285717
+          },
+          "reference_display_rate": 357.14
+        },
+        {
+          "player_id": "a4cc73aa",
+          "player_name": "Sanju Samson",
+          "type": "Batting",
+          "expected": {
+            "runs": 28,
+            "balls_faced": 13,
+            "dismissals": 1,
+            "strike_rate": 215.3846153846154
+          },
+          "reference_display_rate": 215.38
+        },
+        {
+          "player_id": "50c6bc2b",
+          "player_name": "Liam Livingstone",
+          "type": "Batting",
+          "expected": {
+            "runs": 11,
+            "balls_faced": 7,
+            "dismissals": 0,
+            "strike_rate": 157.14285714285714
+          },
+          "reference_display_rate": 157.14
+        },
+        {
+          "player_id": "7a8bd078",
+          "player_name": "Shreyas Gopal",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 6,
+            "runs_charged": 12,
+            "wickets": 3,
+            "economy": 12.0
+          },
+          "reference_display_rate": 12
+        },
+        {
+          "player_id": "c6097d68",
+          "player_name": "Oshane Thomas",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 6,
+            "runs_charged": 6,
+            "wickets": 2,
+            "economy": 6.0
+          },
+          "reference_display_rate": 6
+        },
+        {
+          "player_id": "57ee1fde",
+          "player_name": "Yuzvendra Chahal",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 2,
+            "runs_charged": 0,
+            "wickets": 1,
+            "economy": 0.0
+          },
+          "reference_display_rate": 0
+        }
+      ]
+    },
+    {
+      "match_id": "1216517",
+      "date": "2020-10-18",
+      "selection_reason": "Dubai; double Super Over, ordinary-innings statistics only",
+      "reference_source": "https://www.cricbuzz.com/live-cricket-scorecard/30464/mi-vs-pbks-36th-match-indian-premier-league-2020",
+      "accessed_date": "2026-11-02",
+      "records": [
+        {
+          "player_id": "b17e2f24",
+          "player_name": "KL Rahul",
+          "type": "Batting",
+          "expected": {
+            "runs": 77,
+            "balls_faced": 51,
+            "dismissals": 1,
+            "strike_rate": 150.98039215686273
+          },
+          "reference_display_rate": 150.98
+        },
+        {
+          "player_id": "372455c4",
+          "player_name": "Quinton de Kock",
+          "type": "Batting",
+          "expected": {
+            "runs": 53,
+            "balls_faced": 43,
+            "dismissals": 1,
+            "strike_rate": 123.25581395348837
+          },
+          "reference_display_rate": 123.26
+        },
+        {
+          "player_id": "a757b0d8",
+          "player_name": "Kieron Pollard",
+          "type": "Batting",
+          "expected": {
+            "runs": 34,
+            "balls_faced": 12,
+            "dismissals": 0,
+            "strike_rate": 283.3333333333333
+          },
+          "reference_display_rate": 283.33
+        },
+        {
+          "player_id": "462411b3",
+          "player_name": "Jasprit Bumrah",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 24,
+            "runs_charged": 24,
+            "wickets": 3,
+            "economy": 6.0
+          },
+          "reference_display_rate": 6
+        },
+        {
+          "player_id": "8cf9814c",
+          "player_name": "Mohammed Shami",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 24,
+            "runs_charged": 30,
+            "wickets": 2,
+            "economy": 7.5
+          },
+          "reference_display_rate": 7.5
+        },
+        {
+          "player_id": "a818c1be",
+          "player_name": "Trent Boult",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 24,
+            "runs_charged": 48,
+            "wickets": 0,
+            "economy": 12.0
+          },
+          "reference_display_rate": 12
+        }
+      ]
+    },
+    {
+      "match_id": "1370353",
+      "date": "2023-05-29",
+      "selection_reason": "Ahmedabad final; 20-over first innings and 15-over DLS chase",
+      "reference_source": "https://www.cricbuzz.com/live-cricket-scorecard/72622/csk-vs-gt-final-reserve-day-indian-premier-league-2023",
+      "accessed_date": "2026-11-02",
+      "records": [
+        {
+          "player_id": "d5130a30",
+          "player_name": "Sai Sudharsan",
+          "type": "Batting",
+          "expected": {
+            "runs": 96,
+            "balls_faced": 47,
+            "dismissals": 1,
+            "strike_rate": 204.25531914893617
+          },
+          "reference_display_rate": 204.26
+        },
+        {
+          "player_id": "df5a6881",
+          "player_name": "Devon Conway",
+          "type": "Batting",
+          "expected": {
+            "runs": 47,
+            "balls_faced": 25,
+            "dismissals": 1,
+            "strike_rate": 188.0
+          },
+          "reference_display_rate": 188
+        },
+        {
+          "player_id": "a4e37e47",
+          "player_name": "Shivam Dube",
+          "type": "Batting",
+          "expected": {
+            "runs": 32,
+            "balls_faced": 21,
+            "dismissals": 0,
+            "strike_rate": 152.38095238095238
+          },
+          "reference_display_rate": 152.38
+        },
+        {
+          "player_id": "759ac88f",
+          "player_name": "Mohit Sharma",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 18,
+            "runs_charged": 36,
+            "wickets": 3,
+            "economy": 12.0
+          },
+          "reference_display_rate": 12
+        },
+        {
+          "player_id": "efc04be7",
+          "player_name": "Noor Ahmad",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 18,
+            "runs_charged": 17,
+            "wickets": 2,
+            "economy": 5.666666666666667
+          },
+          "reference_display_rate": 5.7
+        },
+        {
+          "player_id": "64839cb3",
+          "player_name": "Matheesha Pathirana",
+          "type": "Bowling",
+          "expected": {
+            "legal_balls": 24,
+            "runs_charged": 44,
+            "wickets": 2,
+            "economy": 11.0
+          },
+          "reference_display_rate": 11
+        }
+      ]
+    }
+  ]
+}

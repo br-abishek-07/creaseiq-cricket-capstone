@@ -2,13 +2,14 @@
 from contextlib import contextmanager
 from datetime import date
 import json
+from threading import RLock
 from pathlib import Path
 
 import duckdb
 
-from .parquet_store import ComparisonDataError, ROOT, ensure_parquet
+from .parquet_store import ComparisonDataError, ROOT, ensure_parquet, sha256_file
 
-METRICS_VERSION = "comparison-metrics-1.0.0"
+METRICS_VERSION = "comparison-metrics-1.0.1"
 
 PHASES = {"Overall": (0, 10**9), "Powerplay window (1–6)": (0, 5),
           "Middle overs (7–15)": (6, 14), "Death overs (16–20)": (15, 19)}
@@ -19,6 +20,8 @@ class ComparisonEngine:
     def __init__(self, store, manifest):
         self.store = Path(store)
         self.manifest = manifest
+        self._store_lock = RLock()
+        self._verified_files = {}
         if not all((self.store / f"{name}.parquet").is_file() for name in ["deliveries", "wickets", "matches", "innings"]):
             raise ComparisonDataError("Comparison Parquet files are missing. Rebuild the data cache.")
 
@@ -26,15 +29,30 @@ class ComparisonEngine:
     def from_sources(cls, data_dir=None, output_dir=None):
         return cls(*ensure_parquet(data_dir, output_dir))
 
+    def _verify_store(self):
+        """Catch disk changes even when Streamlit reuses this engine object."""
+        with self._store_lock:
+            for name in ["deliveries", "wickets", "matches", "innings"]:
+                path = self.store / f"{name}.parquet"
+                stat = path.stat()
+                stamp = (stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+                if self._verified_files.get(name) != stamp:
+                    expected = self.manifest["tables"][name]["parquet_sha256"]
+                    if sha256_file(path) != expected:
+                        raise ComparisonDataError("Comparison Parquet integrity changed. Rebuild the comparison cache.")
+                    self._verified_files[name] = stamp
+
     @contextmanager
     def connect(self):
         try:
+            self._verify_store()
             with duckdb.connect() as con:
                 con.execute("SET threads=2")
                 con.execute("SET memory_limit='256MB'")
                 for name in ["deliveries", "wickets", "matches", "innings"]:
                     con.read_parquet(str(self.store / f"{name}.parquet")).create_view(name)
                 yield con
+                self._verify_store()
         except (duckdb.Error, OSError) as exc:
             raise ComparisonDataError(f"Comparison query unavailable: {exc}") from None
 
@@ -82,9 +100,19 @@ class ComparisonEngine:
         with self.connect() as con:
             params, ids = self._parameters(con, player_a_id, player_b_id, start_date, decision_as_of_date, phase)
             # Filter before any aggregates. Overs are source zero-based integers.
-            con.execute("""CREATE TEMP TABLE selected AS SELECT * FROM deliveries
-                WHERE match_date>=? AND match_date<? AND is_super_over=0
-                AND over_number_zero_based BETWEEN ? AND ?""", params)
+            # Materialize only selected actors and the columns used by statistics.
+            # Raw source columns remain intact in Parquet for evidence exports.
+            columns = ["delivery_id", "match_id", "match_date", "innings_number", "is_super_over",
+                       "striker_id", "bowler_id", "batter_runs", "is_ball_faced_by_batter",
+                       "is_legal_delivery", "bowler_runs_charged", "total_runs"]
+            if "is_boundary" in [r[0] for r in con.execute("DESCRIBE deliveries").fetchall()]:
+                columns.append("is_boundary")
+            actors = ("(striker_id IN (?,?) OR non_striker_id IN (?,?))" if mode=="Batting"
+                      else "bowler_id IN (?,?)")
+            actor_parameters = ids+ids if mode=="Batting" else ids
+            con.execute("CREATE TEMP TABLE selected AS SELECT " + ",".join(columns) + " FROM deliveries "
+                "WHERE match_date>=? AND match_date<? AND is_super_over=0 "
+                "AND over_number_zero_based BETWEEN ? AND ? AND " + actors, params+actor_parameters)
             if mode == "Batting":
                 has_boundaries = "is_boundary" in [r[0] for r in con.execute("DESCRIBE selected").fetchall()]
                 boundary = ("sum(CASE WHEN is_boundary THEN 1 ELSE 0 END)" if has_boundaries else "NULL::BIGINT")
@@ -137,8 +165,11 @@ class ComparisonEngine:
             raise ComparisonDataError("Invalid evidence request.")
         with self.connect() as con:
             params, ids = self._parameters(con, player_a_id, player_b_id, start_date, decision_as_of_date, phase)
-            con.execute("""CREATE TEMP TABLE slice AS SELECT * FROM deliveries WHERE match_date>=? AND match_date<?
-                AND is_super_over=0 AND over_number_zero_based BETWEEN ? AND ?""", params)
+            actors = ("(striker_id IN (?,?) OR non_striker_id IN (?,?))" if mode=="Batting"
+                      else "bowler_id IN (?,?)")
+            actor_parameters = ids+ids if mode=="Batting" else ids
+            con.execute("CREATE TEMP TABLE slice AS SELECT * FROM deliveries WHERE match_date>=? AND match_date<? "
+                "AND is_super_over=0 AND over_number_zero_based BETWEEN ? AND ? AND " + actors, params+actor_parameters)
             if mode=="Batting":
                 predicate = "s.striker_id IN (?,?) OR s.non_striker_id IN (?,?)"
                 values = ids+ids
@@ -153,11 +184,26 @@ class ComparisonEngine:
                 FROM matches m WHERE m.match_id IN (SELECT match_id FROM evidence) ORDER BY m.date,m.match_id""").fetchdf()
             # Match-by-match series includes batter dismissals without multiplying delivery runs.
             if mode=="Batting":
-                series = con.execute("""SELECT match_id,match_date,striker_id AS player_id,sum(batter_runs) AS runs,
-                    sum(is_ball_faced_by_batter) AS balls_faced FROM slice WHERE striker_id IN (?,?) GROUP BY ALL ORDER BY match_date,match_id""", ids).fetchdf()
+                series = con.execute("""WITH batting AS (
+                    SELECT match_id,match_date,striker_id AS player_id,sum(batter_runs) AS runs,
+                        sum(is_ball_faced_by_batter) AS balls_faced FROM slice WHERE striker_id IN (?,?) GROUP BY ALL),
+                    outs AS (SELECT s.match_id,s.match_date,w.player_out_id AS player_id,count(*) AS dismissals
+                        FROM wickets w JOIN slice s USING(delivery_id) WHERE w.is_super_over=0 AND w.is_dismissal=1
+                        AND w.player_out_id IN (?,?) GROUP BY ALL)
+                    SELECT coalesce(b.match_id,o.match_id) AS match_id,coalesce(b.match_date,o.match_date) AS match_date,
+                        coalesce(b.player_id,o.player_id) AS player_id,coalesce(runs,0)::BIGINT AS runs,
+                        coalesce(balls_faced,0)::BIGINT AS balls_faced,coalesce(dismissals,0)::BIGINT AS dismissals
+                    FROM batting b FULL JOIN outs o USING(match_id,match_date,player_id)
+                    ORDER BY match_date,match_id,player_id""", ids+ids).fetchdf()
             else:
-                series = con.execute("""SELECT match_id,match_date,bowler_id AS player_id,sum(bowler_runs_charged) AS runs_charged,
-                    sum(is_legal_delivery) AS legal_balls,6.0*sum(bowler_runs_charged)/nullif(sum(is_legal_delivery),0) AS economy
-                    FROM slice WHERE bowler_id IN (?,?) GROUP BY ALL ORDER BY match_date,match_id""", ids).fetchdf()
+                series = con.execute("""WITH bowling AS (
+                    SELECT match_id,match_date,bowler_id AS player_id,sum(bowler_runs_charged) AS runs_charged,
+                        sum(is_legal_delivery) AS legal_balls FROM slice WHERE bowler_id IN (?,?) GROUP BY ALL),
+                    credits AS (SELECT s.match_id,s.match_date,s.bowler_id AS player_id,sum(w.credited_to_bowler) AS wickets
+                        FROM wickets w JOIN slice s USING(delivery_id) WHERE w.is_super_over=0 AND s.bowler_id IN (?,?) GROUP BY ALL)
+                    SELECT b.*,coalesce(c.wickets,0)::BIGINT AS wickets,
+                        6.0*b.runs_charged/nullif(b.legal_balls,0) AS economy
+                    FROM bowling b LEFT JOIN credits c USING(match_id,match_date,player_id)
+                    ORDER BY match_date,match_id,player_id""", ids+ids).fetchdf()
             return {"matches": matches, "deliveries": events, "wickets": wickets, "delivery_count": count,
                     "wicket_count": con.execute("SELECT count(*) FROM wickets w JOIN evidence e USING(delivery_id)").fetchone()[0], "series": series}

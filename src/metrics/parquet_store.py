@@ -105,6 +105,37 @@ def validate_relations(con):
         _assert_zero(con, "SELECT count(*) FROM deliveries WHERE is_boundary IS NULL OR (is_boundary AND batter_runs NOT IN(4,6))", "Invalid verified boundary classification")
 
 
+def _valid_cached_manifest(manifest, target, version, converter_hash, source_hashes):
+    """A JSON file is not a valid manifest merely because it can be decoded."""
+    if not isinstance(manifest, dict):
+        return False
+    if (manifest.get("dataset_version") != version
+            or manifest.get("converter_sha256") != converter_hash
+            or manifest.get("converter_version") != VERSION):
+        return False
+    tables = manifest.get("tables")
+    warnings = manifest.get("warnings")
+    if not isinstance(tables, dict) or set(tables) != set(SOURCES) or not isinstance(warnings, dict):
+        return False
+    for key in ["overs_with_more_than_six_legal_balls", "regular_events_outside_standard_windows"]:
+        if type(warnings.get(key)) is not int or warnings[key] < 0:
+            return False
+    if type(warnings.get("missing_boundary_classification")) is not bool:
+        return False
+    for key, meta in tables.items():
+        if not isinstance(meta, dict) or meta.get("source_sha256") != source_hashes[key]:
+            return False
+        count = meta.get("input_rows")
+        if type(count) is not int or count < 0 or meta.get("output_rows") != count:
+            return False
+        if not isinstance(meta.get("schema"), list) or not meta["schema"]:
+            return False
+        path = target / f"{key}.parquet"
+        if not path.is_file() or sha256_file(path) != meta.get("parquet_sha256"):
+            return False
+    return True
+
+
 def ensure_parquet(data_dir=None, output_dir=None):
     """Create a hash-versioned store on first use; keep complete prior versions.
 
@@ -126,9 +157,7 @@ def ensure_parquet(data_dir=None, output_dir=None):
             if manifest_path.is_file():
                 try:
                     manifest = json.loads(manifest_path.read_text())
-                    valid = (manifest.get("dataset_version")==version and set(manifest.get("tables", {}))==set(SOURCES)
-                             and all((target / f"{key}.parquet").is_file() and sha256_file(target / f"{key}.parquet")==meta["parquet_sha256"]
-                                     for key, meta in manifest["tables"].items()))
+                    valid = _valid_cached_manifest(manifest, target, version, converter_hash, hashes)
                 except (OSError, ValueError, KeyError, TypeError):
                     valid = False
                 if valid:

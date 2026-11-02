@@ -5,6 +5,8 @@ Team Matchups, Auction Trends and Squad Analysis. Four DeepSeek specialists use
 Python-built evidence, while routing and citation checks form the other two
 logical agent roles. For dev setup, run `streamlit run app.py` on this branch.
 
+Post-integration QA: [release-readiness report](docs/POST_INTEGRATION_QA.md). The current dev/Lab gate passes; the unrestricted suite retains twelve production-UI target mismatches. Hosted operation remains unverified.
+
 The deterministic **Player Comparison Lab** adds DuckDB/Parquet batting and bowling comparisons with an exclusive historical cutoff. Read [the Lab guide](docs/PLAYER_COMPARISON_LAB.md) and [the test audit](docs/PLAYER_COMPARISON_AUDIT.md). It requires no API key.
 
 The Research Coordinator now includes IPL batting phases and latest-auction

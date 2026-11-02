@@ -1,0 +1,17 @@
+{
+  "environment": "fresh Python 3.12 venv (no system site packages), clean Git worktree, no derived cache or secrets",
+  "home_seconds": 1.079,
+  "first_lab_seconds": 12.277,
+  "warm_lab_rerun_seconds": 2.121,
+  "home_current_rss_mib": 256.98,
+  "lab_current_rss_mib": 349.48,
+  "peak_process_rss_mib": 643.3,
+  "query_repetitions": 20,
+  "query_median_seconds": 0.402,
+  "query_p95_seconds": 0.4117,
+  "query_min_seconds": 0.3903,
+  "query_max_seconds": 0.4179,
+  "manifest_reuse_seconds": 0.0077,
+  "dataset_version": "1587d6753cfe50f1ef6a992198597598bff99eb3bccfe963760a27c1a20f00ca",
+  "parquet_bytes": 2385428
+}
