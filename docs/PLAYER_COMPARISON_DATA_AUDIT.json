@@ -1,0 +1,564 @@
+{
+  "metrics_version": "comparison-metrics-1.0.0",
+  "manifest": {
+    "dataset_version": "083fa83bb5fb4bb1a6f8493f1da23e4a7a5f02923d68a92fe999cdc9e2614e45",
+    "converter_version": "comparison-lab-1",
+    "converter_sha256": "d6e91d95e422c5fa5cc9d6247f8f6d7b03f3c3f2c330ac8341f03cf921a9e1c2",
+    "created_utc": "2026-11-02T05:18:30.783616+00:00",
+    "tables": {
+      "matches": {
+        "source": "ipl_matches_clean_2008_2026.csv.gz",
+        "input_rows": 1243,
+        "output_rows": 1243,
+        "source_sha256": "d87bc7a891f8645469e58aac72337783dfd5cf808bbdc1c7ffa36c5ca4a02243",
+        "parquet_sha256": "767b3fc9ca7c5439a523ce1e1eddb3598f33032b502af1c59200f4365bf0a135",
+        "schema": [
+          {
+            "name": "match_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "source_json",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "source_sha256",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "data_version",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "source_created",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "source_revision",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "season_year",
+            "type": "BIGINT"
+          },
+          {
+            "name": "source_season",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "date",
+            "type": "DATE"
+          },
+          {
+            "name": "other_match_dates_pipe",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "match_type",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "gender",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "match_overs",
+            "type": "DOUBLE"
+          },
+          {
+            "name": "balls_per_over",
+            "type": "BIGINT"
+          },
+          {
+            "name": "team1_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "team2_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "team1_name_original",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "team2_name_original",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "winner_team_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "winner_original",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "result_raw",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "win_by_runs",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "win_by_wickets",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "eliminator_winner_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "method_raw",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "toss_winner_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "toss_decision",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "city_raw",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "venue_raw",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "venue_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "venue_link_status",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "registered_venue_name",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "player_of_match_original",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "player_of_match_ids_pipe",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "event_json",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "officials_json",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "outcome_json",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "regular_innings_count",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "super_over_innings_count",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "delivery_event_count_including_superover",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "legal_balls_regular_innings",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "first_regular_innings_runs",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "second_regular_innings_runs",
+            "type": "VARCHAR"
+          }
+        ]
+      },
+      "deliveries": {
+        "source": "ipl_deliveries_clean_2008_2026.csv.gz",
+        "input_rows": 295732,
+        "output_rows": 295732,
+        "source_sha256": "91a093240011f2700a3a92129d106a975fb54c3bdd89039ffe6751299f670a81",
+        "parquet_sha256": "303b2593aaed2abde9d25b7c3c5f40a6c4cd5f5103ed6006fed91f3d654e6976",
+        "schema": [
+          {
+            "name": "delivery_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "match_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "match_date",
+            "type": "DATE"
+          },
+          {
+            "name": "season_year",
+            "type": "BIGINT"
+          },
+          {
+            "name": "innings_number",
+            "type": "BIGINT"
+          },
+          {
+            "name": "is_super_over",
+            "type": "BIGINT"
+          },
+          {
+            "name": "batting_team_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "bowling_team_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "batting_team_original",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "bowling_team_original",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "over_number_zero_based",
+            "type": "BIGINT"
+          },
+          {
+            "name": "delivery_sequence_in_over",
+            "type": "BIGINT"
+          },
+          {
+            "name": "actual_delivery",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "striker_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "bowler_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "non_striker_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "striker_name_original",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "bowler_name_original",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "non_striker_name_original",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "batter_runs",
+            "type": "BIGINT"
+          },
+          {
+            "name": "extras_total",
+            "type": "BIGINT"
+          },
+          {
+            "name": "total_runs",
+            "type": "BIGINT"
+          },
+          {
+            "name": "wides",
+            "type": "BIGINT"
+          },
+          {
+            "name": "noballs",
+            "type": "BIGINT"
+          },
+          {
+            "name": "byes",
+            "type": "BIGINT"
+          },
+          {
+            "name": "legbyes",
+            "type": "BIGINT"
+          },
+          {
+            "name": "penalty_extras",
+            "type": "BIGINT"
+          },
+          {
+            "name": "is_legal_delivery",
+            "type": "BIGINT"
+          },
+          {
+            "name": "is_ball_faced_by_batter",
+            "type": "BIGINT"
+          },
+          {
+            "name": "bowler_runs_charged",
+            "type": "BIGINT"
+          },
+          {
+            "name": "wicket_events",
+            "type": "BIGINT"
+          },
+          {
+            "name": "source_json",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "review_json",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "replacements_json",
+            "type": "VARCHAR"
+          }
+        ]
+      },
+      "wickets": {
+        "source": "ipl_wickets_clean_2008_2026.csv.gz",
+        "input_rows": 14705,
+        "output_rows": 14705,
+        "source_sha256": "7fee068399a2fa672ab20bd73bdfeac95fa538f2ee925c57e40a7e1065f52c47",
+        "parquet_sha256": "ba58431f595c67b4cd96128c974437fff9676753492b1e12a9b89fc542b38f76",
+        "schema": [
+          {
+            "name": "wicket_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "delivery_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "match_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "innings_number",
+            "type": "BIGINT"
+          },
+          {
+            "name": "is_super_over",
+            "type": "BIGINT"
+          },
+          {
+            "name": "player_out_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "player_out_name_original",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "dismissal_kind",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "is_dismissal",
+            "type": "BIGINT"
+          },
+          {
+            "name": "credited_to_bowler",
+            "type": "BIGINT"
+          },
+          {
+            "name": "fielder_ids_pipe",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "fielder_names_pipe",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "wicket_original_json",
+            "type": "VARCHAR"
+          }
+        ]
+      },
+      "innings": {
+        "source": "ipl_innings_clean_2008_2026.csv.gz",
+        "input_rows": 2514,
+        "output_rows": 2514,
+        "source_sha256": "a1bfb25d12227983ecedb568014d11260f0d94fd015cc1134b93b6b0e57f280f",
+        "parquet_sha256": "3b29c62433ff3dfc589f70f45ce6277f8f2d24916afe4906016f0ed8899739f9",
+        "schema": [
+          {
+            "name": "innings_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "match_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "season_year",
+            "type": "BIGINT"
+          },
+          {
+            "name": "innings_number",
+            "type": "BIGINT"
+          },
+          {
+            "name": "is_super_over",
+            "type": "BIGINT"
+          },
+          {
+            "name": "batting_team_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "bowling_team_id",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "batting_team_original",
+            "type": "VARCHAR"
+          },
+          {
+            "name": "legal_balls",
+            "type": "BIGINT"
+          },
+          {
+            "name": "delivery_events",
+            "type": "BIGINT"
+          },
+          {
+            "name": "runs_from_deliveries",
+            "type": "BIGINT"
+          },
+          {
+            "name": "penalty_runs_pre",
+            "type": "BIGINT"
+          },
+          {
+            "name": "penalty_runs_post",
+            "type": "BIGINT"
+          },
+          {
+            "name": "total_runs_including_innings_penalties",
+            "type": "BIGINT"
+          },
+          {
+            "name": "extras_from_deliveries",
+            "type": "BIGINT"
+          },
+          {
+            "name": "wickets_excluding_retired_hurt",
+            "type": "BIGINT"
+          },
+          {
+            "name": "target_runs_recorded",
+            "type": "DOUBLE"
+          },
+          {
+            "name": "target_overs_recorded",
+            "type": "DOUBLE"
+          },
+          {
+            "name": "over_count_recorded",
+            "type": "DOUBLE"
+          }
+        ]
+      }
+    },
+    "validation": "passed: keys, references, dates, flags, run arithmetic and exact typed row round-trip",
+    "warnings": {
+      "overs_with_more_than_six_legal_balls": 4,
+      "regular_events_outside_standard_windows": 0,
+      "missing_boundary_classification": true
+    }
+  },
+  "limitations": [
+    "Source-derived validation is not independent scorecard certification.",
+    "Physical boundary flags unavailable in this archive.",
+    "No intervals, ability estimates, shrinkage, player rankings or acquisition recommendation."
+  ],
+  "performance": {
+    "cold_conversion_seconds": 15.354,
+    "warm_manifest_validation_seconds": 0.009,
+    "two_player_query_seconds": 0.743,
+    "process_peak_rss_mib": 517.8,
+    "source": "local Linux sandbox; illustrative timings, not hosted SLA"
+  },
+  "integrity_summary": {
+    "source_player_ids": 805,
+    "unresolved_existing_registry_ids": 0,
+    "regular_delivery_events": 295557,
+    "super_over_delivery_events": 175,
+    "adjusted_result_matches": 23
+  },
+  "date_coverage": [
+    "2008-04-18",
+    "2026-05-31"
+  ],
+  "additional_sources": [
+    {
+      "file": "ipl_matches_clean_2008_2026.csv.gz",
+      "uploaded_archive": "IPL_Cricsheet_Clean_Accurate_Data_2008_2026.zip",
+      "uncompressed_sha256": "e0563da50e7d9c14e783d154df274de73a05b68c0b371517e97a034ce6c8d0d9",
+      "bytes": 132126
+    },
+    {
+      "file": "ipl_innings_clean_2008_2026.csv.gz",
+      "uploaded_archive": "IPL_Cricsheet_Clean_Accurate_Data_2008_2026.zip",
+      "uncompressed_sha256": "535a44e0d563ee488628c6cd522ea2d7a238e166faf49592c08d0b83e175c78f",
+      "bytes": 41798
+    }
+  ],
+  "test_results": {
+    "focused_new": {
+      "passed": 38,
+      "failed": 0,
+      "skipped": 0,
+      "blocked": 0
+    },
+    "full_repository": {
+      "passed": 158,
+      "failed": 12,
+      "skipped": 0,
+      "blocked": 0,
+      "passing_subtests": 168
+    },
+    "baseline": {
+      "passed": 119,
+      "failed": 13,
+      "passing_subtests": 168
+    },
+    "new_failure_ids": [],
+    "preexisting_failure_ids": [
+      "tests/test_accuracy.py::DossierInterface::test_overview_and_ambiguous_name",
+      "tests/test_runtime.py::ReleaseRuntime::test_01_previous_package_cannot_break_home_or_brief",
+      "tests/test_runtime.py::ReleaseRuntime::test_06_code_update_invalidates_data_cache_in_same_session",
+      "tests/test_startup.py::Startup::test_cached_generic_modules_do_not_break_startup",
+      "tests/test_startup.py::Startup::test_startup_from_another_working_directory",
+      "tests/test_ui.py::Interface::test_01_home_and_presets",
+      "tests/test_ui.py::Interface::test_02_all_team_workspaces_and_themes",
+      "tests/test_ui.py::Interface::test_03_stale_brief_hidden_after_filter_change",
+      "tests/test_ui.py::Interface::test_04_stale_after_scenario_and_question",
+      "tests/test_ui.py::Interface::test_05_private_journal_and_review",
+      "tests/test_ui.py::Interface::test_06_historical_cutoff_safe",
+      "tests/test_ui.py::Interface::test_07_multiple_capability_assumptions"
+    ],
+    "baseline_only_intermittent_failure": [
+      "tests/test_core.py::Release::test_42_concurrent_quota_limit"
+    ]
+  }
+}

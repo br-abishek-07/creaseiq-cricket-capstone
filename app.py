@@ -662,6 +662,7 @@ with st.sidebar:
         options=[
             "Home/Overview",
             "Player Profile",
+            "Player Comparison Lab",
             "Team Matchups",
             "Squad Analysis",
             "Auction Trends",
@@ -830,6 +831,17 @@ if selected_module == "Home/Overview":
     )
     with st.expander("Dataset availability"):
         st.dataframe(pd.DataFrame(home_status["dataset_rows"]), hide_index=True, width="stretch")
+
+
+elif selected_module == "Player Comparison Lab":
+    # Keep optional analytics dependencies and historical filters local to this page.
+    try:
+        from src.metrics.comparison_ui import render_player_comparison_lab
+    except ImportError:
+        st.title("Player Comparison Lab")
+        st.error("Comparison dependencies are unavailable. Install requirements.txt and restart the dev app.")
+    else:
+        render_player_comparison_lab()
 
 
 elif selected_module == "Player Profile":

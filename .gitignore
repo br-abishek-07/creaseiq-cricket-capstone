@@ -5,3 +5,5 @@ __pycache__/
 .runtime/
 *.sqlite3
 *.log
+# Reproducible, hash-versioned Player Comparison Lab cache
+/data/parquet/
